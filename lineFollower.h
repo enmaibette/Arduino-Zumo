@@ -1,4 +1,4 @@
-#include <Wire.h>
+  #include <Wire.h>
 #include <Zumo32U4.h>
 
 Zumo32U4LCD lcd;
@@ -29,28 +29,25 @@ void calibrateSensors(){
 }
 
 void setup() {
-  // put your setup code here, to run once:
-
-
-  lineSensors.initFiveSensors();
+ 
+  lineSensors.initFiveSensors(); // init the 5 Sensors
   buttonA.waitForButton();
   calibrateSensors();
   buttonA.waitForButton();
 
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-
-  
+void loop() {  
     lineSensors.readCalibrated(lineSensorsValue);
   
-      if(lineSensorsValue[2] >= 800){
+      if(lineSensorsValue[2] >= 800 && lineSensorsValue[0] <= 800 && lineSensorsValue[4] <= 800){
         motors.setSpeeds(150, 150);
-      }else if(lineSensorsValue[0] >= 800 && lineSensorsValue[4] < 800){ // turn left
+      }else if(lineSensorsValue[0] >= 800){ // turn left
         motors.setSpeeds(-150, 150);
-      }else if(lineSensorsValue[4] >= 800 && lineSensorsValue[0] < 800){ // turn right
+        delay(200);
+      }else if(lineSensorsValue[4] >= 800){ // turn right
         motors.setSpeeds(150, -150);
+        delay(200);
       
     }
     
